@@ -15,6 +15,7 @@ public class TangshiApplication {
         SpringApplication application = new SpringApplication(TangshiApplication.class);
         application.addListeners(new PropertiesListener("file.properties"));
         application.run(args);
+        System.out.println("开始了");
     }
 
 }
