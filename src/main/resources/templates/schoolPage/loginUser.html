@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>注册</title>
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta content="telephone=no" name="format-detection" />
+		<link href="css/style3.css" rel="stylesheet" type="text/css" />
+		<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script type="text/javascript" src="js/register.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+		<!-- <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script> -->
+
+
+
+
+		<!-- ZUI 标准版压缩后的 CSS 文件 -->
+		<link rel="stylesheet" href="css/zui.min.css">
+		<link rel="stylesheet" href="css/zui.datagrid.min.css" />
+		<link rel="stylesheet" href="css/zui.datagrid.css" />
+		<!-- ZUI Javascript 依赖 jQuery -->
+		<script src="js/jquery.js"></script>
+		<!-- ZUI 标准版压缩后的 JavaScript 文件 -->
+		<script src="js/zui.min.js"></script>
+		<script src="js/zui.datagrid.min.js"></script>
+		<script src="js/zui.datagrid.js"></script>
+		<script src="js/vue.min.js"></script>
+
+		<title></title>
+		<style type="text/css">
+			.color1 {
+				background: #D3CCE3;
+				/* fallback for old browsers */
+				background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);
+				/* Chrome 10-25, Safari 5.1-6 */
+				background: linear-gradient(to right, #E9E4F0, #D3CCE3);
+				/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+			}
+		</style>
+	</head>
+	<body class="color1" style="height: 900px;">
+
+
+		<div style="height: 100px;background-color: #ffffff;">
+
+			<h1>
+				哈哈哈哈哈
+			</h1>
+		</div>
+
+		<div style="width: 100%;" class="divapp">
+			<div style="height: 80px;" class="divapp"></div>
+
+			<div style="width: 100%;text-align: center;background-color: ;">
+
+				<div
+					style="background-color: ;width:500px ;text-align: ;margin: 0 auto;margin-left: 25px;margin-bottom: 15px;position: absolute;left: 28%;">
+
+
+
+					<ul class="nav nav-tabs">
+						<li class="active"><a style="font-size: 15px;border-radius: 15px 15px 0 0;" href="###"
+								data-target="#tab2Content1" data-toggle="tab">登录</a></li>
+						<li><a style="font-size: 15px;border-radius: 15px 15px 0 0;" href="###"
+								data-target="#tab2Content2" data-toggle="tab">注册</a></li>
+						<li><a style="font-size: 15px;border-radius: 15px 15px 0 0;" href="###"
+								data-target="#tab2Content3" data-toggle="tab">找回密码</a></li>
+					</ul>
+					<div class="tab-content" style="width: 500px;">
+						<div class="tab-pane fade active in" id="tab2Content1">
+							<div class="panel-body" style="background-color: #F5F5F5;border-radius: 0 0 15px 15px;">
+								<div style="width: 100%;background-color: #;height: 50px;text-align: center;">
+									<h1>登录</h1>
+								</div>
+								<div class="jq22-register-form" id="">
+									<form action="">
+										<div class="jq22-register-form-item">
+											<input type="text" name="username" maxlength="20" placeholder="账户名/邮箱"
+												class="txt03 f-r3 required" tabindex="3"
+												data-valid="isNonEmpty||between:3-20||isUname"
+												data-error="<i class='icon-tips'></i>您还没有输入账户名||<i class='icon-tips'></i>用户名长度3-20位||<i class=''></i>"
+												id="username">
+											<label class="focus valid"></label>
+										</div>
+										<div class="jq22-register-form-item" style="background-color: ;">
+											<input type="password" name="user_password" placeholder="密码"
+												id="user_password" maxlength="20" class="txt04 f-r3 required"
+												tabindex="4" style="ime-mode:disabled;" onpaste="return  false"
+												autocomplete="off" data-valid="isNonEmpty||between:6-20||level:2"
+												data-error="<i class='icon-tips'></i>密码太短，最少6位||<i class='icon-tips'></i>密码长度6-20位||<i class=''></i>">
+											<label class="focus valid"></label>
+										</div>
+
+
+										<div class="jq22-register-form-item" style="display: none;">
+											<input type="text" placeholder="动态码" maxlength="6" id="verifyNo"
+												class="txt02 f-r3 f-fl required" tabindex="2"
+												data-valid="isNonEmpty||isInt"
+												data-error="<i class='icon-tips'></i>请填写正确的邮箱动态码||<i class='icon-tips'></i>请填写6位邮箱动态码">
+											<label class="focus valid"></label>
+										</div>
+										<div class="jq22-register-form-item">
+											<!-- <div class="protocol">注册即同意<a href="#">《用户使用协议》</a>&amp;<a href="#">《隐私权条款》</a></div> -->
+											<input id="login-btn" class="jq22-btn-reg" placeholder=""
+												readonly="readonly" value="登录">
+										</div>
+									</form>
+								</div>
+							</div>
+
+
+						</div>
+						<div class="tab-pane fade" id="tab2Content2">
+							<div class="panel-body" style="background-color: #f5f5f5;border-radius: 0 0 15px 15px;">
+								<div style="width: 100%;background-color: #;height: 50px;text-align: center;">
+									<h1>账号注册</h1>
+								</div>
+								<div class="jq22-register-form" id="">
+									<form action="">
+
+										<div class="jq22-register-form-item">
+											<input type="text" name="username" maxlength="20" placeholder="账户名"
+												class="txt03 f-r3 required" tabindex="3"
+												data-valid="isNonEmpty||between:3-20||isUname"
+												data-error="<i class='icon-tips'></i>您还没有输入账户名||<i class='icon-tips'></i>用户名长度3-20位||<i class='icon-tips'></i>建议输入字母、数字、且以中文或字母开头"
+												id="user_account">
+											<label class="focus valid"></label>
+										</div>
+										<div class="jq22-register-form-item">
+											<input type="password" name="password" placeholder="设置密码" id="password"
+												maxlength="20" class="txt04 f-r3 required" tabindex="4"
+												style="ime-mode:disabled;" onpaste="return  false" autocomplete="off"
+												data-valid="isNonEmpty||between:6-20||level:2"
+												data-error="<i class='icon-tips'></i>密码太短，最少6位||<i class='icon-tips'></i>密码长度6-20位||<i class='icon-tips'></i>密码太简单，有被盗风险，建议字母+数字的组合">
+											<label class="focus valid"></label>
+										</div>
+										<div class="jq22-register-form-item">
+											<input type="password" name="password" placeholder="确认密码" maxlength="20"
+												class="txt05 f-r3 required" tabindex="5" style="ime-mode:disabled;"
+												onpaste="return  false" autocomplete="off"
+												data-valid="isNonEmpty||between:6-16||isRepeat:password"
+												data-error="<i class='icon-tips'></i>密码太短，最少6位||<i class='icon-tips'></i>密码长度6-16位||<i class='icon-tips'></i>两次密码输入不一致"
+												id="rePassword">
+											<label class="focus valid"></label>
+										</div>
+										<div class="jq22-register-form-item">
+
+											<div style="width: 350px;background-color: ;">
+												<input style="width: 200px;" id="user_email" type="text" name="phone"
+													placeholder="邮箱" class="txt01 f-r3 required" keycodes="tel"
+													tabindex="1" data-valid="isNonEmpty||isPhone"
+													data-error="<i class='icon-tips'></i>请输入邮箱||<i class='icon-tips'></i>邮箱格式不正确"
+													maxlength="99">
+
+												<input
+													style="width: 130px;text-indent: 0px;line-height: 30px;float: right;"
+													id="code" type="button" class="btn" value="获取验证码"
+													onClick="sendMessage1()" />
+												<label class="focus valid">
+													<div class="msg" style="display:none"><i
+															class='icon-tips'></i>您还未输入邮箱</div>
+												</label>
+											</div>
+
+										</div>
+										<div class="jq22-register-form-item">
+											<input type="text" placeholder="动态码" maxlength="6" id="user_code"
+												class="txt02 f-r3 f-fl required" tabindex="2"
+												data-valid="isNonEmpty||isInt"
+												data-error="<i class='icon-tips'></i>请填写正确的邮箱动态码||<i class='icon-tips'></i>请填写6位邮箱动态码">
+											<label class="focus valid"></label>
+										</div>
+										<div class="jq22-register-form-item">
+											<!-- <div class="protocol">注册即同意<a href="#">《用户使用协议》</a>&amp;<a href="#">《隐私权条款》</a></div> -->
+											<input id="reg-account" class="jq22-btn-reg" placeholder=""
+												readonly="readonly" value="注册">
+										</div>
+									</form>
+								</div>
+							</div>
+
+						</div>
+						<div class="tab-pane fade" id="tab2Content3">
+							<div class="panel-body" style="background-color: #f5f5f5;border-radius: 0 0 15px 15px;">
+								<div style="width: 100%;background-color: #;height: 50px;text-align: center;">
+									<h1>找回密码</h1>
+								</div>
+								<div class="jq22-register-form" id="">
+									<form action="">
+										<div class="jq22-register-form-item">
+											<div style="width: 350px;background-color: ;">
+												<input style="width: 200px;" id="email2" type="text" name="phone"
+													placeholder="邮箱" class="txt01 f-r3 required" keycodes="tel"
+													tabindex="1" data-valid="isNonEmpty||isPhone"
+													data-error="<i class='icon-tips'></i>请输入邮箱||<i class='icon-tips'></i>邮箱格式不正确"
+													maxlength="99">
+
+												<input
+													style="width: 130px;text-indent: 0px;line-height: 30px;float: right;"
+													id="code2" type="button" class="btn" value="获取验证码"
+													onClick="sendMessage2()" />
+												<label class="focus valid">
+													<div class="msg" style="display:none"><i
+															class='icon-tips'></i>您还未输入邮箱</div>
+												</label>
+											</div>
+										</div>
+										<div class="jq22-register-form-item">
+											<input type="text" placeholder="动态码" maxlength="6" id="usercode2"
+												class="txt02 f-r3 f-fl required" tabindex="2"
+												data-valid="isNonEmpty||isInt"
+												data-error="<i class='icon-tips'></i>请填写正确的邮箱动态码||<i class='icon-tips'></i>请填写6位邮箱动态码">
+											<label class="focus valid"></label>
+										</div>
+
+
+										<div class="jq22-register-form-item">
+											<!-- <div class="protocol">注册即同意<a href="#">《用户使用协议》</a>&amp;<a href="#">《隐私权条款》</a></div> -->
+											<input id="find-password" class="jq22-btn-reg" placeholder=""
+												readonly="readonly" value="找回密码">
+										</div>
+									</form>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+		</div>
+
+
+
+
+
+		<script type="text/javascript">
+			// 你需要手动初始化工具提示
+			$('[data-toggle="tooltip"]').tooltip({
+
+			});
+
+
+
+			var phoneReg = /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/; //邮箱正则表达式
+			var count2 = 60; //间隔函数，1秒执行
+			var InterValObj2; //timer变量，控制时间
+			var curCount2; //当前剩余秒数
+			/*第一*/
+			function sendMessage2() {
+				var usercode2 = $.trim($('#usercode2').val()); ///密码找回验证码
+				curCount2 = count2;
+				var phone = $.trim($('#email2').val()); ///密码找回邮箱
+				if (!phoneReg.test(phone)) {
+					var msg = $.zui.messager.show("请输入有效的邮箱", {
+						placement: 'center',
+						type: 'success',
+						time: 2000
+					});
+					// alert(" 请输入有效的邮箱");
+					return false;
+				} else {
+
+					console.log("验证码发送！！！")
+					$.ajax({
+						url: "http://localhost:8881/user-info/setCode",
+						dataType: "json",
+						type: "get",
+						data: {
+							email: phone
+						},
+						success: function(res) {
+							var msg = $.zui.messager.show(res.msg, {
+								placement: 'center',
+								type: 'success',
+								time: 2000
+							});
+						},
+						error: function() {
+
+							var msg = $.zui.messager.show("失败！！", {
+								placement: 'center',
+								type: 'success',
+								time: 2000
+							});
+						},
+					});
+				}
+
+				//设置button效果，开始计时
+				$("#code2").attr("disabled", "true");
+				$("#code2").val(+curCount2 + "秒再获取");
+				InterValObj2 = window.setInterval(SetRemainTime2, 1000); //启动计时器，1秒执行一次
+			}
+
+			function SetRemainTime2() {
+				if (curCount2 == 0) {
+					window.clearInterval(InterValObj2); //停止计时器
+					$("#code2").removeAttr("disabled"); //启用按钮
+					$("#code2").val("重新发送");
+				} else {
+					curCount2--;
+					$("#code2").val(+curCount2 + "秒再获取");
+				}
+			}
+
+			// var phoneReg = /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/; //邮箱正则表达式
+			var count = 60; //间隔函数，1秒执行
+			var InterValObj1; //timer变量，控制时间
+			var curCount1; //当前剩余秒数
+			/*第一*/
+			function sendMessage1() {
+
+				curCount1 = count;
+				var phone = $.trim($('#user_email').val());
+				if (!phoneReg.test(phone)) {
+					var msg = $.zui.messager.show("请输入有效的邮箱", {
+						placement: 'center',
+						type: 'success',
+						time: 2000
+					});
+					// alert(" 请输入有效的邮箱");
+					return false;
+				} else {
+					console.log("验证码发送！！！")
+					$.ajax({
+						url: "http://localhost:8881/user-info/setCode",
+						dataType: "json",
+						type: "get",
+						data: {
+							email: phone
+						},
+						success: function(res) {
+							var msg = $.zui.messager.show(res.msg, {
+								placement: 'center',
+								type: 'success',
+								time: 2000
+							});
+						},
+						error: function() {
+
+							var msg = $.zui.messager.show("失败！！", {
+								placement: 'center',
+								type: 'success',
+								time: 2000
+							});
+						},
+					});
+				}
+
+				//设置button效果，开始计时
+				$("#code").attr("disabled", "true");
+				$("#code").val(+curCount1 + "秒再获取");
+				InterValObj1 = window.setInterval(SetRemainTime1, 1000); //启动计时器，1秒执行一次
+			}
+
+			function SetRemainTime1() {
+				if (curCount1 == 0) {
+					window.clearInterval(InterValObj1); //停止计时器
+					$("#code").removeAttr("disabled"); //启用按钮
+					$("#code").val("重新发送");
+				} else {
+					curCount1--;
+					$("#code").val(+curCount1 + "秒再获取");
+				}
+			}
+			$(function() {
+
+				$("#login-btn").click(function() {
+					var username = $.trim($('#username').val());
+					var user_password = $.trim($('#user_password').val());
+					if (username != "" && user_password != "") {
+						$.ajax({
+							url: "http://localhost:8881/user/userLogin",
+							dataType: "json",
+							type: "get",
+							data: {
+								userNumber: username,
+								userPassword: user_password
+							},
+							success: function(res) {
+								console.log(res.userLoginFlag)
+								var userInfo = res.userInfo;
+								var userLoginFlag = res.userLoginFlag;
+
+
+								switch (userLoginFlag) {
+									case 0:
+										var msg = $.zui.messager.show("账号错误", {
+											placement: 'center',
+											type: 'success',
+											time: 2000
+										});
+										break;
+									case 1:
+										var msg = $.zui.messager.show("密码错误", {
+											placement: 'center',
+											type: 'success',
+											time: 2000
+										});
+										break;
+									case 2:
+										var msg = $.zui.messager.show("验证成功,等待跳转", {
+											placement: 'center',
+											type: 'success',
+											time: 2000
+										});
+										
+										var userInfoStr = JSON.stringify(userInfo);
+										Cookies.set('userInfo', userInfoStr, {
+											expires: 7,
+											path: '/'
+										}); //7天过期userId
+										var a = Cookies.get("userInfo");
+										console.log(JSON.parse(a))
+										break;
+									default:
+										var msg = $.zui.messager.show("联系管理员", {
+											placement: 'center',
+											type: 'success',
+											time: 2000
+										});
+										break;
+								}
+
+
+
+								
+
+								// var int = self.setInterval(function() { // 这个方法是说在延迟两秒后执行大括号里的方法
+								// 	window.location.href = "userPages/index.html"
+								// }, 2000) //这里2000代表两秒 
+							},
+							error: function(e) {
+
+								var msg = $.zui.messager.show("系统错误", {
+									placement: 'center',
+									type: 'danger',
+									time: 2000
+								});
+
+							},
+						});
+					} else {
+						var msg = $.zui.messager.show("账号或密码为空", {
+							placement: 'center',
+							type: 'warning',
+							time: 2000
+						});
+					}
+
+
+				});
+				$("#reg-account").click(function() { ////////注册账号
+					var user_account = $.trim($('#user_account').val());
+					var user_password1 = $.trim($('#password').val());
+					var user_password2 = $.trim($('#rePassword').val());
+					var user_email = $.trim($('#user_email').val());
+					var user_code = $.trim($('#user_code').val());
+					// alert(user_account + "-" + user_password1 + "-" + user_password2 + "-" + user_email + "-" + user_code)
+					if (user_code != "" && user_password1 != "" && user_password2 != "" && user_email != "" &&
+						user_account != "") {
+						$.ajax({
+							url: "http://localhost:8881/user-info/addUser",
+							dataType: "json",
+							type: "get",
+							data: {
+								user_account: user_account,
+								user_password: user_password2,
+								user_code: user_code,
+								user_email: user_email
+
+							},
+							success: function(res) {
+								var msg = $.zui.messager.show(res.msg, {
+									placement: 'center',
+									type: 'success',
+									time: 2000
+								});
+							},
+							error: function() {
+								var msg = $.zui.messager.show(res.msg, {
+									placement: 'center',
+									type: 'success',
+									time: 2000
+								});
+							},
+						});
+					} else {
+						var msg = $.zui.messager.show("有信息为填", {
+							placement: 'center',
+							type: 'success',
+							time: 2000
+						});
+					}
+
+
+
+
+				});
+				$("#find-password").click(function() {
+					var usercode2 = $.trim($('#usercode2').val());
+					var useremail2 = $.trim($('#email2').val());
+					// alert(usercode2 + useremail2)
+					if (usercode2 != "" && useremail2 != "") {
+
+						$.ajax({
+							url: "http://localhost:8881/user-info/findUser",
+							dataType: "json",
+							type: "get",
+							data: {
+								user_email: useremail2,
+								user_code: usercode2
+							},
+							success: function(res) {
+								var msg = $.zui.messager.show(res.msg, {
+									placement: 'center',
+									type: 'success',
+									time: 2000
+								});
+							},
+							error: function() {
+								var msg = $.zui.messager.show(res.msg, {
+									placement: 'center',
+									type: 'success',
+									time: 2000
+								});
+							},
+						});
+					} else {
+						var msg = $.zui.messager.show("操作失败", {
+							placement: 'center',
+							type: 'success',
+							time: 2000
+						});
+					}
+				});
+			});
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					loginshow: true,
+					usershow: false,
+					username: name
+				},
+				created: function() {
+
+					this.loginfun();
+				},
+				methods: {
+					loginfun: function() {
+						var name = Cookies.get('name'); //获取cookie
+						if (name == null) {
+							this.loginshow = true;
+							this.usershow = false;
+
+						} else {
+							this.usershow = true;
+							this.loginshow = false;
+							this.username = name;
+
+						}
+					}
+
+				}
+			});
+
+			function removeCookie() {
+				Cookies.remove("name");
+				var msg = $.zui.messager.show("退出成功", {
+					placement: 'center',
+					type: 'success',
+					time: 2000
+				});
+				vm.loginfun();
+
+			}
+
+
+
+			// $(function() {
+			// 	var elm = $('#app');
+			// 	var startPos = $(elm).offset().top;
+			// 	$.event.add(window, "scroll", function() {
+			// 		var p = $(window).scrollTop();
+			// 		$(elm).css('position', ((p) > startPos) ? 'fixed' : 'static');
+			// 		$(elm).css('top', ((p) > startPos) ? '0px' : '');
+			// 	});
+			// });
+		</script>
+
+
+	</body>
+
+</html>

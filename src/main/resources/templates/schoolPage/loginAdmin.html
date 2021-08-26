@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>网站后台管理系统</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="css/zui.min.css">
+		<link rel="stylesheet" href="css/zui.datagrid.min.css" />
+		<link rel="stylesheet" href="css/zui.datagrid.css" />
+		<!-- <script src="js/jquery.js"></script> -->
+		<script src="js/zui.min.js"></script>
+		<script src="js/zui.datagrid.min.js"></script>
+		<script src="js/zui.datagrid.js"></script>
+		<script src="js/vue.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+		
+		<link type="text/css" href="css/style.css" rel="stylesheet" />
+
+		<script>
+			if(self!=top)
+{
+	parent.location.href='index.html';
+}
+function CheckLogin(obj){
+	if(obj.username.value=='')
+	{
+		alert('请输入用户名');
+		obj.username.focus();
+		return false;
+	}
+	if(obj.password.value=='')
+	{
+		alert('请输入登录密码');
+		obj.password.focus();
+		return false;
+	}
+	return true;
+}
+</script>
+
+
+	</head>
+	<body>
+
+		<div id="app" class="container" align="center">
+			<div class="row" style="margin-top: 18.75rem;">
+				<div class="col-3">
+
+				</div>
+				<div class="col-6">
+					<div class="inset">
+						<form name="login" id="login" method="post" action="">
+							<input type="hidden" name="enews" value="login">
+							<div>
+								<h2>后台管理</h2>
+								<span style="text-align: left;text-indent: 0.4em;font-size: 2.125rem;"><label>用户名</label></span>
+								<span><input id="adminAccount" type="text" name="username" class="textbox"></span>
+							</div>
+							<div>
+								<span style="text-align: left;text-indent: 0.4em;font-size: 2.125rem;"><label>密码</label></span>
+								<span><input id="adminPassword" name="password" type="password" class="password"></span>
+							</div>
+							<div class="sign">
+								<input style="font-size: 2.125rem;" type="reset" class="submit" value="重置" />
+								<input style="font-size: 2.125rem;" id="login_but" type="button" value="登录" class="submit" />
+
+							</div>
+						</form>
+					</div>
+
+				</div>
+				<div class="col-3">
+
+				</div>
+			</div>
+
+		</div>
+
+		<script>
+			
+			// 点击按钮时显示漂浮消息
+			$(function() {
+				$("#login_but").click(function() {
+					
+					console.log('登录')
+					var adminAccount = $.trim($('#adminAccount').val());
+					var adminPassword = $.trim($('#adminPassword').val());
+					console.log("账号：" + adminAccount + "-密码：" + adminPassword)
+					if (adminAccount != "" && adminPassword != "") { /////
+						$.ajax({
+							url: "http://localhost:8881/sys-admin/adminLogin",
+							dataType: "json",
+							type: "get",
+							data: {
+								adminAccount: adminAccount,
+								adminPassword: adminPassword
+							},
+							success: function(res) { //////userLoginFlag==0没有此人，2账号密码全对，1密码错误
+								console.log(res)
+								switch (res.adminLoginFlag) {
+									case 1:
+										var msg = $.zui.messager.show("密码错误！！！", {
+											placement: 'center',
+											type: 'danger',
+											time: 2000
+										});
+										break;
+									case 2:
+										var msg = $.zui.messager.show("验证成功！", {
+											placement: 'center',
+											type: 'success',
+											time: 2000
+										});
+										var adminInfo = JSON.stringify(res.adminInfo)
+										Cookies.set('adminInfo', adminInfo, {
+											expires: 7,
+											path: '/'
+										}); //7天过期userId
+										window.location.href = 'adminPages/index.html'
+										
+										break;
+									case 0:
+										// vm.show_tip("账号不存在，先注册!","danger")
+										var msg = $.zui.messager.show("账号不存在！", {
+											placement: 'center',
+											type: 'danger',
+											time: 2000
+										});
+										break;
+									default:
+										break;
+								}
+							},
+							error: function() {
+								var msg = $.zui.messager.show("错误，联系管理员", {
+									placement: 'center',
+									type: 'danger',
+									time: 2000
+								});
+							},
+						});
+					} else {
+						var msg = $.zui.messager.show("账号或密码未填！！！", {
+							placement: 'center',
+							type: 'danger',
+							time: 2000
+						});
+					}
+			
+					// vm.show_tip()
+				});
+			});
+			
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					
+				},
+				created: function() {
+					
+					// this.show_tip()
+				},
+				methods: {
+					show_tip: function(tipMsg, tipType) {
+						console.log(222)
+						var msg = $.zui.messager.show(tipMsg, {
+							placement: 'center',
+							type: tipType,
+							time: 2000
+						});
+					},
+					remove_cookis: function(){
+						Cookies.remove("adminInfo");
+						var msg = $.zui.messager.show("退出成功", {
+							placement: 'center',
+							type: 'success',
+							time: 2000
+						});
+						
+					},
+					loginfun: function() {
+						var adminInfo = Cookies.get("adminInfo")
+						 //获取cookie
+						if (adminInfo == null) {
+							this.show_login = true;
+							this.show_adminInfo = false;
+						
+						} else {
+							this.show_adminInfo = true;
+							this.show_login = false;
+							
+							
+						}
+					}
+					
+			
+				}
+			});
+			
+			
+		</script>
+
+	</body>
+</html>
