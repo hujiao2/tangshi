@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
@@ -12,12 +13,13 @@ import java.util.Map;
 import java.util.Properties;
 
 @Service
+@Component
 public class EmailUtils {
     private static Logger logger = LoggerFactory.getLogger(EmailUtils.class);
 
     public static void main(String[] args) {
-//        sendSimpleMail("hujiao3669@163.com", "这是标题", "正式内容");
-
+        sendSimpleMail("1416127947@qq.com", "这是标题", "正式内容");
+        sendVerifyCode("141627947@qq.com","1234");
     }
 
     private static synchronized JavaMailSenderImpl getJavaMailSender() {
@@ -30,7 +32,7 @@ public class EmailUtils {
         return javaMailSenderImpl;
     }
 
-    public  boolean sendVerifyCode(String toEmail, String verifyCode) {
+    public static   boolean sendVerifyCode(String toEmail, String verifyCode) {
         return sendSimpleMail(toEmail, "党员在线教育验证码", "【信息与机电工程学院党支部】您的验证码是" + verifyCode + "，请于3分钟内正确输入");
     }
 

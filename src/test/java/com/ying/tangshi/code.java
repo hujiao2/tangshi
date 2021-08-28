@@ -32,7 +32,7 @@ public class code {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        String path = "/Users/lianying/Desktop/毕业设计/古诗背诵小程序/mybatis";
+        String path = "/Users/lianying/Desktop/毕业设计/school_H5/mybatis";
         gc.setOutputDir(path);
         gc.setAuthor("ying");
         gc.setOpen(false);
@@ -47,7 +47,7 @@ public class code {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/tangshiSystem?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=true&serverTimezone=GMT%2B8");
+        dsc.setUrl("jdbc:mysql://1.117.233.160:3306/school?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=true&serverTimezone=GMT%2B8");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("sa123456");
@@ -68,7 +68,7 @@ public class code {
         StrategyConfig strategy = new StrategyConfig();
         //resume_date_user
 //        strategy.setInclude(new String[] { "sys_admin,sys_doctor,sys_doctor_learn,sys_illnessinfo,sys_login,sys_message,sys_user" });
-        strategy.setInclude("sys_admin","sys_tang","sys_tang_voice","sys_user");
+        strategy.setInclude("sys_role","sys_permission");
 //        strategy.setInclude("sys_see_doctor");
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);

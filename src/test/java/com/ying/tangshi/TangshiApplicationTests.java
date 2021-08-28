@@ -1,12 +1,16 @@
 package com.ying.tangshi;
 import java.util.Date;
 
+import com.ying.tangshi.entity.SysRole;
 import com.ying.tangshi.entity.User;
+import com.ying.tangshi.mapper.SysRoleMapper;
 import com.ying.tangshi.mapper.UserMapper;
+import com.ying.tangshi.utils.EmailUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.mail.MessagingException;
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 
@@ -16,6 +20,29 @@ class TangshiApplicationTests {
     @Autowired
     UserMapper userMapper;
 
+
+    @Autowired
+    SysRoleMapper sysRoleMapper;
+
+    @Autowired
+    EmailUtil emailUtil;
+
+    @Test
+    void adduser() {
+        String subject = "简历之家";
+
+
+        String qq = "1416127947@qq.com";
+        int code = (int) ((Math.random() * 9 + 1) * 100000);
+        String text = "<h1 style=\"color: black;font-weight: 800;\">" + code + "</h1>";
+
+        try {
+
+            emailUtil.sendEmail(subject, text, true, false, qq);//发送验证码
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     void contextLoads() {
@@ -48,8 +75,8 @@ class TangshiApplicationTests {
     @Test
     void test2(){
 
+        sysRoleMapper.selectList(null);
 
-        userMapper.selectById(1);
 
     }
 

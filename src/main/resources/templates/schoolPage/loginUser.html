@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -7,9 +8,10 @@
 		<meta content="yes" name="apple-mobile-web-app-capable" />
 		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
 		<meta content="telephone=no" name="format-detection" />
-		<link href="css/style3.css" rel="stylesheet" type="text/css" />
+
+		<link th:href="@{/static/css/style3.css}" rel="stylesheet" type="text/css" />
 		<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-		<script type="text/javascript" src="js/register.js"></script>
+<!--		<script type="text/javascript" th:src="@{/static/js/register.js}"></script>-->
 		<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
 		<!-- <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script> -->
@@ -18,16 +20,16 @@
 
 
 		<!-- ZUI 标准版压缩后的 CSS 文件 -->
-		<link rel="stylesheet" href="css/zui.min.css">
-		<link rel="stylesheet" href="css/zui.datagrid.min.css" />
-		<link rel="stylesheet" href="css/zui.datagrid.css" />
+		<link rel="stylesheet" th:href="@{/static/css/zui.min.css}">
+		<link rel="stylesheet" th:href="@{/static/css/zui.datagrid.min.css}" />
+		<link rel="stylesheet" th:href="@{/static/css/zui.datagrid.css}" />
 		<!-- ZUI Javascript 依赖 jQuery -->
-		<script src="js/jquery.js"></script>
+<!--		<script th:src="@{/static/js/jquery.js}"></script>-->
 		<!-- ZUI 标准版压缩后的 JavaScript 文件 -->
-		<script src="js/zui.min.js"></script>
-		<script src="js/zui.datagrid.min.js"></script>
-		<script src="js/zui.datagrid.js"></script>
-		<script src="js/vue.min.js"></script>
+		<script th:src="@{/static/js/zui.min.js}"></script>
+		<script th:src="@{/static/js/zui.datagrid.min.js}"></script>
+		<script th:src="@{/static/js/zui.datagrid.js}"></script>
+		<script th:src="@{/static/js/vue.min.js}"></script>
 
 		<title></title>
 		<style type="text/css">
@@ -40,6 +42,7 @@
 				/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 			}
+			
 		</style>
 	</head>
 	<body class="color1" style="height: 900px;">
@@ -65,12 +68,12 @@
 					<ul class="nav nav-tabs">
 						<li class="active"><a style="font-size: 15px;border-radius: 15px 15px 0 0;" href="###"
 								data-target="#tab2Content1" data-toggle="tab">登录</a></li>
-						<li><a style="font-size: 15px;border-radius: 15px 15px 0 0;" href="###"
+						<li ><a style="font-size: 15px;border-radius: 15px 15px 0 0;" href="###"
 								data-target="#tab2Content2" data-toggle="tab">注册</a></li>
-						<li><a style="font-size: 15px;border-radius: 15px 15px 0 0;" href="###"
+						<li ><a style="font-size: 15px;border-radius: 15px 15px 0 0;" href="###"
 								data-target="#tab2Content3" data-toggle="tab">找回密码</a></li>
 					</ul>
-					<div class="tab-content" style="width: 500px;">
+					<div style="border-top-right-radius: 0px;width: 500px;" class="tab-content">
 						<div class="tab-pane fade active in" id="tab2Content1">
 							<div class="panel-body" style="background-color: #F5F5F5;border-radius: 0 0 15px 15px;">
 								<div style="width: 100%;background-color: #;height: 50px;text-align: center;">
@@ -241,13 +244,22 @@
 
 
 
-		<script type="text/javascript">
+		<script type="text/javascript" th:inline="javascript">
+			var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+
 			// 你需要手动初始化工具提示
 			$('[data-toggle="tooltip"]').tooltip({
 
 			});
 
 
+			// // 穿梭框左侧选中
+			// $(".b1").on('click',function() {
+			// 	$(".tab-content").addcss("b_1")
+			// });
+			// $("#b1").on('click',function() {
+			// 	$(".tab-content").removeClass("b_1")
+			// });
 
 			var phoneReg = /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/; //邮箱正则表达式
 			var count2 = 60; //间隔函数，1秒执行
@@ -331,21 +343,22 @@
 				} else {
 					console.log("验证码发送！！！")
 					$.ajax({
-						url: "http://localhost:8881/user-info/setCode",
+						url: basePath+"/userEmail/userSendEmailCheck",
 						dataType: "json",
-						type: "get",
+						type: "POST",
 						data: {
-							email: phone
+							userNumber: 123,
+							userEmail:phone
 						},
 						success: function(res) {
-							var msg = $.zui.messager.show(res.msg, {
+							var msg = $.zui.messager.show("发送成功", {
 								placement: 'center',
 								type: 'success',
 								time: 2000
 							});
 						},
-						error: function() {
-
+						error: function(e) {
+							console.log(e);
 							var msg = $.zui.messager.show("失败！！", {
 								placement: 'center',
 								type: 'success',
@@ -374,15 +387,16 @@
 			$(function() {
 
 				$("#login-btn").click(function() {
-					var username = $.trim($('#username').val());
+					var user_name = $.trim($('#username').val());
 					var user_password = $.trim($('#user_password').val());
-					if (username != "" && user_password != "") {
+					if (user_name != "" && user_password != "") {
 						$.ajax({
-							url: "http://localhost:8881/user/userLogin",
+							// url:[[@{/a/loginAjax}]],
+							url: basePath+"/a/loginAjax",
 							dataType: "json",
-							type: "get",
+							type: "POST",
 							data: {
-								userNumber: username,
+								userNumber: user_name,
 								userPassword: user_password
 							},
 							success: function(res) {
@@ -412,14 +426,19 @@
 											type: 'success',
 											time: 2000
 										});
-										
+
 										var userInfoStr = JSON.stringify(userInfo);
 										Cookies.set('userInfo', userInfoStr, {
 											expires: 7,
 											path: '/'
 										}); //7天过期userId
 										var a = Cookies.get("userInfo");
-										console.log(JSON.parse(a))
+										console.log(JSON.parse(a));
+										window.location.href = basePath+"/a/index"
+
+										// var int = self.setInterval(function() { // 这个方法是说在延迟两秒后执行大括号里的方法
+										// 	window.location.href = "index.html"
+										// }, 2000) //这里2000代表两秒
 										break;
 									default:
 										var msg = $.zui.messager.show("联系管理员", {
@@ -432,7 +451,7 @@
 
 
 
-								
+
 
 								// var int = self.setInterval(function() { // 这个方法是说在延迟两秒后执行大括号里的方法
 								// 	window.location.href = "userPages/index.html"

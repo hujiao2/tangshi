@@ -8,11 +8,13 @@ import com.ying.tangshi.mapper.UserEmailCheckMapper;
 import com.ying.tangshi.mapper.UserMapper;
 import com.ying.tangshi.service.UserEmailCheckService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ying.tangshi.utils.EmailUtil;
 import com.ying.tangshi.utils.EmailUtils;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +35,12 @@ public class UserEmailCheckServiceImpl extends ServiceImpl<UserEmailCheckMapper,
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    EmailUtils emailUtils;
+
+    @Autowired
+    EmailUtil emailUtil;
 
     @Override
     public Map userEmailCheck(String userNumber, String checkNumber,
@@ -115,7 +123,12 @@ public class UserEmailCheckServiceImpl extends ServiceImpl<UserEmailCheckMapper,
                 Log.info("验证码：" + (int) Math.ceil(aa));
                 int num = (int) Math.ceil(aa);
                 String str = String.valueOf(num);
+                try {
+                    emailUtil.sendCode(userEmail);
 
+                }catch (MessagingException e) {
+                    e.printStackTrace();
+                }
                 UserEmailCheck userEmailCheck = new UserEmailCheck();
                 userEmailCheck.setUserNumber(userNumber);
                 userEmailCheck.setUserEmail(userEmail);

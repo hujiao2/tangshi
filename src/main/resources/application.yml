@@ -30,6 +30,28 @@ spring:
     useGlobalDataSourceStat: true
     #通过connectProperties属性来打开mergeSql功能；慢SQL记录
     connectProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  thymeleaf:
+    #避免修改模版后还要重启
+    cache: false
+    #模版路径，默认为templates（可忽略）
+    prefix: classpath:/templates/
+    #检查模版位置（可忽略）
+    check-template-location: true
+    #模版后缀，默认html（可忽略）
+    suffix: .html
+    encoding: UTF-8
+#    servlet:
+#      content-type: text/html
+    #模版模式
+    mode: HTML
+#  mvc:
+#    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
+  mail:
+    username: 2524829435@qq.com
+    password: buarvpmlynoadjbb
+    host: smtp.qq.com
 #  main:
 #    allow-bean-definition-overriding: true
 #mybatis:
@@ -37,7 +59,7 @@ spring:
 #  mapper-locations: classpath:mapping/*Mapper.xml
 mybatis-plus:
   # xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）
-  mapper-locations: classpath:mapper/*Mapper.xml
+  mapper-locations: classpath:mapper/*Mapper.xml,classpath:mapper/**/*.xml
   # 以下配置均有默认值,可以不设置
   global-config:
     db-config:
@@ -47,6 +69,8 @@ mybatis-plus:
       field-strategy: NOT_EMPTY
       #数据库类型
       db-type: MYSQL
+      logic-not-delete-value: 0
+      logic-delete-value: 1
   configuration:
     # 是否开启自动驼峰命名规则映射:从数据库列名到Java属性驼峰命名的类似映射
     map-underscore-to-camel-case: true
