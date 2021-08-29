@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -54,7 +55,7 @@ public class StringUtils {
      * @return
      */
     public static String byteToStr(byte[] byt) throws UnsupportedEncodingException {
-        String strRead = new String(byt, "UTF-8");
+        String strRead = new String(byt, StandardCharsets.UTF_8);
         return strRead;
     }
 
@@ -115,7 +116,7 @@ public class StringUtils {
      */
     public static int getAsc(String st) {
         byte[] gc = st.getBytes();
-        int ascNum = (int) gc[0];
+        int ascNum = gc[0];
         return ascNum;
     }
 

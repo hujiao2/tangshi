@@ -15,7 +15,7 @@ import java.util.Map;
  * @since 2021-08-25
  */
 public interface UserService extends IService<User> {
-    public Map userLogin(String userAccount, String userPassword);
+    Map userLogin(String userAccount, String userPassword);
 
 
 }

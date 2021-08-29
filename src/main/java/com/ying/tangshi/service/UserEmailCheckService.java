@@ -14,7 +14,7 @@ import java.util.Map;
  * @since 2021-08-25
  */
 public interface UserEmailCheckService extends IService<UserEmailCheck> {
-    public Map userEmailCheck(String userNumber, String checkNumber,String userName, String userPhone, String userEmail, String userClass, String userState, String userStateClass, String userPassword);
+    Map userEmailCheck(String userNumber, String checkNumber, String userName, String userPhone, String userEmail, String userClass, String userState, String userStateClass, String userPassword);
 
-    public Map userSendEmailCheck(String userNumber, String userEmail);
+    Map userSendEmailCheck(String userNumber, String userEmail);
 }

@@ -430,7 +430,7 @@
                 }
             }
         }
-        return;
+
     };//end closeCntr()
     
     /**

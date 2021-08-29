@@ -29,7 +29,7 @@
     priceRange.noUiSlider.on('update', function (values, handle) {
       (handle ? $(limitFieldMax) : $(limitFieldMin)).text(values[handle]);
     });
-  };
+  }
 
 
 
@@ -63,16 +63,16 @@
 
   if ($('#datepicker').length) {
     $('#datepicker').datepicker();
-  };
+  }
 
   if ($('#datepicker2').length) {
     $('#datepicker2').datepicker();
-  };
+  }
 
 
   if ($('#datepicker-inline').length) {
     $('#datepicker-inline').datepicker();
-  };
+  }
 
 
   $('input[name="time"]').ptTimeSelect();
@@ -715,7 +715,7 @@
         var count = $('.filter-layout').find(filterElement).length;
         $(this).children('.filter-text').append('<span class="count">' + count + '</span>');
       });
-    };
+    }
   }
 
 
@@ -797,7 +797,7 @@
         speed: '1000',
         pagerCustom: '.listing-details__gallery .slider-pager .listing-details__thumb-box'
       });
-    };
+    }
 
 
 
@@ -849,7 +849,7 @@
         }
       });
     });
-  };
+  }
 
 
 

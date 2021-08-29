@@ -80,7 +80,7 @@ public class FileUploadUtil {
         //获取到文件的名字
         String oldFileName = file.getOriginalFilename();
         logger.info("上传文件名称：" + oldFileName);
-        String oldFileNameSufix = oldFileName.substring(oldFileName.lastIndexOf("."), oldFileName.length());
+        String oldFileNameSufix = oldFileName.substring(oldFileName.lastIndexOf("."));
 
         //得到文件的新名字
         String newFileName = UUID.randomUUID().toString() + oldFileNameSufix;

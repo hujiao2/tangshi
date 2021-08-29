@@ -118,7 +118,7 @@ public class UserEmailCheckServiceImpl extends ServiceImpl<UserEmailCheckMapper,
 
 
             }else {
-                double aa = (double) Math.random() * 9000 + 1000;
+                double aa = Math.random() * 9000 + 1000;
                 System.out.println("bbb:" + (int) Math.ceil(aa));
                 Log.info("验证码：" + (int) Math.ceil(aa));
                 int num = (int) Math.ceil(aa);
@@ -139,7 +139,7 @@ public class UserEmailCheckServiceImpl extends ServiceImpl<UserEmailCheckMapper,
                 userEmailCheck.setLogicDel(1);
                 userEmailCheckMapper.insert(userEmailCheck);
                 EmailUtils emailUtils = new EmailUtils();
-                emailUtils.sendVerifyCode(userEmail, str);
+                EmailUtils.sendVerifyCode(userEmail, str);
                 Log.info("邮箱发送成功"+userNumber);
                 flag = 2;
                 result.put("userNumber", userNumber);

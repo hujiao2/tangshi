@@ -10,6 +10,7 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -37,9 +38,7 @@ public class PropertiesListenerConfig {
             try {
                 // PropertiesLoaderUtils的默认编码是ISO-8859-1,在这里转码一下
                 propertiesMap.put(keyStr, new String(
-                        props.getProperty(keyStr).getBytes("ISO-8859-1"), "utf-8"));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+                        props.getProperty(keyStr).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
             } catch (java.lang.Exception e) {
                 e.printStackTrace();
             }
