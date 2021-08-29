@@ -39,8 +39,7 @@ public class UserEmailCheckServiceImpl extends ServiceImpl<UserEmailCheckMapper,
     @Autowired
     EmailUtils emailUtils;
 
-    @Autowired
-    EmailUtil emailUtil;
+
 
     @Override
     public Map userEmailCheck(String userNumber, String checkNumber,
@@ -112,7 +111,7 @@ public class UserEmailCheckServiceImpl extends ServiceImpl<UserEmailCheckMapper,
             User usercheck = userMapper.selectByUserNumber(userNumber);
             if(null != usercheck){
                 Log.info("该学号已经注册"+userNumber);
-                flag = 1;
+                flag = 1;///////学号已经注册
                 result.put("userNumber", userNumber);
                 result.put("userEmail", userEmail);
 
@@ -123,12 +122,6 @@ public class UserEmailCheckServiceImpl extends ServiceImpl<UserEmailCheckMapper,
                 Log.info("验证码：" + (int) Math.ceil(aa));
                 int num = (int) Math.ceil(aa);
                 String str = String.valueOf(num);
-                try {
-                    emailUtil.sendCode(userEmail);
-
-                }catch (MessagingException e) {
-                    e.printStackTrace();
-                }
                 UserEmailCheck userEmailCheck = new UserEmailCheck();
                 userEmailCheck.setUserNumber(userNumber);
                 userEmailCheck.setUserEmail(userEmail);
@@ -138,8 +131,7 @@ public class UserEmailCheckServiceImpl extends ServiceImpl<UserEmailCheckMapper,
                 userEmailCheck.setVersion(1);
                 userEmailCheck.setLogicDel(1);
                 userEmailCheckMapper.insert(userEmailCheck);
-                EmailUtils emailUtils = new EmailUtils();
-                EmailUtils.sendVerifyCode(userEmail, str);
+                emailUtils.sendVerifyCode(userEmail, str);
                 Log.info("邮箱发送成功"+userNumber);
                 flag = 2;
                 result.put("userNumber", userNumber);

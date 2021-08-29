@@ -34,8 +34,8 @@ public class UserEmailCheckController extends BaseController {
                                          @RequestParam("userState") String userState,
                                          @RequestParam("userStateClass") String userStateClass,
                                          @RequestParam("userPassword") String userPassword,
-                                         @RequestParam("UserEmailCheck") String UserEmailCheck) {
-        return UserEmailCheckService.userEmailCheck(userNumber, userName, userPhone, userEmail, userClass, userState, userStateClass, userPassword,UserEmailCheck);
+                                         @RequestParam("userEmailCheck") String UserEmailCheck) {
+        return UserEmailCheckService.userEmailCheck(userNumber,UserEmailCheck, userName, userPhone, userEmail, userClass, userState, userStateClass, userPassword);
     }
 
 

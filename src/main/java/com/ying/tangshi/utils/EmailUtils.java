@@ -17,10 +17,10 @@ import java.util.Properties;
 public class EmailUtils {
     private static Logger logger = LoggerFactory.getLogger(EmailUtils.class);
 
-    public static void main(String[] args) {
-        sendSimpleMail("1416127947@qq.com", "这是标题", "正式内容");
-        sendVerifyCode("141627947@qq.com","1234");
-    }
+//    public static void main(String[] args) {
+//        sendSimpleMail("1416127947@qq.com", "这是标题", "正式内容");
+//        sendVerifyCode("141627947@qq.com","1234");
+//    }
 
     private static synchronized JavaMailSenderImpl getJavaMailSender() {
         // 获取邮箱发送实例
@@ -32,7 +32,7 @@ public class EmailUtils {
         return javaMailSenderImpl;
     }
 
-    public static   boolean sendVerifyCode(String toEmail, String verifyCode) {
+    public boolean sendVerifyCode(String toEmail, String verifyCode) {
         return sendSimpleMail(toEmail, "党员在线教育验证码", "【信息与机电工程学院党支部】您的验证码是" + verifyCode + "，请于3分钟内正确输入");
     }
 

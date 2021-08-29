@@ -1,5 +1,6 @@
 package com.ying.tangshi.entity;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.ying.tangshi.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -50,6 +51,7 @@ public class User extends BaseEntity {
 
     private Integer version;
 
+    @TableLogic
     private Integer logicDel;
 
 
