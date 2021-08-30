@@ -34,8 +34,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         Map<String, Object> result = new HashMap<>();
         int flag = -1;
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();////条件查找
-        queryWrapper.eq("userNumber", userNumber);
-        User user = userMapper.selectByUserNumber(userNumber);//////根据账号查找
+        queryWrapper.eq("user_number", userNumber);
+        User user = userMapper.selectOne(queryWrapper);
         Log.info("用户查询:"+user);
 
         if (null == user) {/////根据接收得adminAccount查找对象为空,返回0

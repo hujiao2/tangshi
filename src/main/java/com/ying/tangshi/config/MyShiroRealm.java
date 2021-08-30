@@ -41,7 +41,10 @@ public class MyShiroRealm extends AuthorizingRealm {
         String userNumber= (String) principalCollection.getPrimaryPrincipal();
         //查询用户名称
 
-        User user = userMapper.selectByUserNumber(userNumber);
+
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_number",userNumber);
+        User user = userMapper.selectOne(wrapper);
 
         QueryWrapper<SysRole> roleQueryWrapper = new QueryWrapper<>();
 
@@ -69,7 +72,9 @@ public class MyShiroRealm extends AuthorizingRealm {
         }
         //获取用户信息
         String userNumber = authenticationToken.getPrincipal().toString();
-        User user = userMapper.selectByUserNumber(userNumber);
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_number",userNumber);
+        User user = userMapper.selectOne(wrapper);
         if (user == null) {
             //这里返回后会报出对应异常
 
