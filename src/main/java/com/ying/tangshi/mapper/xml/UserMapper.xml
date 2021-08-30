@@ -18,10 +18,17 @@
         <result column="version" property="version" />
         <result column="logic_del" property="logicDel" />
     </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_number, user_name, user_phone, user_email, user_class, user_state, user_state_class,
+        user_password,create_time,update_time,version,logic_del
+    </sql>
     <select id="selectByUserNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
-        *
-        from USER
-        where USER_NUMBER = #{userNumber,jdbcType=VARCHAR}
+        <include refid="Base_Column_List"/>
+        from user
+        where user_number = #{userNumber,jdbcType=VARCHAR}
     </select>
+
+
 </mapper>

@@ -58,6 +58,7 @@ public class UserEmailCheckServiceImpl extends ServiceImpl<UserEmailCheckMapper,
                 return  result;
             }
 
+            //todo 一个账号，多个验证码错误
             UserEmailCheck emailCheck = userEmailCheckMapper.selectByUserNumber(userNumber);
 
             if (emailCheck.getCheckNumber() == checkNumber) {

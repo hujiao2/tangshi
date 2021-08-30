@@ -21,8 +21,13 @@
 
     <select id="selectByUserNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
-        *
+        <include refid="Base_Column_List"/>
         from user_email_check
         where user_number = #{userNumber,jdbcType=VARCHAR}
     </select>
+
+    <delete id="deletedByEmailId" parameterType="int">
+        delete from user_email_check WHERE id= #{id,jdbcType=VARCHAR}
+
+    </delete>
 </mapper>

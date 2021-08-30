@@ -15,5 +15,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UserEmailCheckMapper extends BaseMapper<UserEmailCheck> {
     UserEmailCheck selectByUserNumber(String UserNumber);
+    int deletedByEmailId(int emailId);
 
 }
