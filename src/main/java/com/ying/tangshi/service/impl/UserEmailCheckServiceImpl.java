@@ -4,7 +4,7 @@ import java.util.Date;
 
 import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.oracle.tools.packager.Log;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.ying.tangshi.entity.SysPermission;
 import com.ying.tangshi.entity.SysRole;
 import com.ying.tangshi.entity.User;
@@ -19,6 +19,8 @@ import com.ying.tangshi.utils.DateUtils;
 import com.ying.tangshi.utils.EmailUtil;
 import com.ying.tangshi.utils.EmailUtils;
 import lombok.val;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +54,7 @@ public class UserEmailCheckServiceImpl extends ServiceImpl<UserEmailCheckMapper,
     @Autowired
     SysPermissionMapper sysPermissionMapper;
 
+    private static Logger Log = LoggerFactory.getLogger(UserEmailCheckServiceImpl.class);
 
     @Override
     public Map userEmailCheck(String userNumber, String checkNumber,
@@ -249,4 +252,91 @@ public class UserEmailCheckServiceImpl extends ServiceImpl<UserEmailCheckMapper,
         Long lastLong = uuid.getLeastSignificantBits() % 100;
         return time + lastLong;
     }
+
+    @Override
+    public Map userSendEmailCheckRetrieve(String userEmail) {
+        Log.info("找回密码请求验证码接口，请求参数:" + userEmail);
+        Map<String, Object> result = new HashMap<>();
+        int flag = 1;
+
+        if (null == userEmail) {
+            Log.info("邮箱参数为空");
+            flag = 0;
+            result.put("userEmail", "null");
+        } else {
+            QueryWrapper<UserEmailCheck> wrapper1 = new QueryWrapper<>();
+            wrapper1.eq("user_email",userEmail);////根据邮箱，查询验证码
+            List<UserEmailCheck> userEmailChecks = userEmailCheckMapper.selectList(wrapper1);
+
+            if (userEmailChecks.size() >= 1) {
+                for (int i = 0; i < userEmailChecks.size(); i++) {
+                    UserEmailCheck userEmailCheck = userEmailChecks.get(i);
+                    userEmailCheckMapper.deleteById(userEmailCheck.getId());
+                }
+            }
+
+            double aa = Math.random() * 9000 + 1000;
+            System.out.println("bbb:" + (int) Math.ceil(aa));
+            Log.info("验证码：" + (int) Math.ceil(aa));
+            int num = (int) Math.ceil(aa);
+            String str = String.valueOf(num);
+            UserEmailCheck userEmailCheck = new UserEmailCheck();
+            userEmailCheck.setUserNumber("找回密码");
+            userEmailCheck.setUserEmail(userEmail);
+            userEmailCheck.setCheckNumber(str);
+            userEmailCheck.setCreateTime(new Date());
+            userEmailCheck.setUpdateTime(new Date());
+            userEmailCheck.setVersion(1);
+            userEmailCheck.setLogicDel(1);
+            userEmailCheckMapper.insert(userEmailCheck);
+            emailUtils.sendVerifyCodeRetrieve(userEmail, str);
+            Log.info("邮箱发送成功" + userEmail);
+            flag = 2;
+            result.put("userEmail", userEmail);
+        }
+
+        result.put("userLoginFlag", flag);
+        return result;
+    }
+
+    @Override
+    public Map userEmailRetrieveCheck(String userEmail,String checkNumber,String password) {
+        Log.info("验证邮箱验证码接口，请求参数:" + userEmail);
+        Map<String, Object> result = new HashMap<>();
+        int flag = 1;
+
+        if (null == userEmail) {
+            Log.info("邮箱参数为空");
+            flag = 0;
+            result.put("userEmail", "null");
+            return result;
+        }else{
+
+            QueryWrapper<UserEmailCheck> wrapper = new QueryWrapper<>();
+            wrapper.eq("user_email", userEmail);
+            UserEmailCheck emailCheck = userEmailCheckMapper.selectOne(wrapper);
+
+            if (emailCheck.getCheckNumber().equals(checkNumber) ) {
+                Log.info("验证成功：" + userEmail);
+                int i = userEmailCheckMapper.deleteById(emailCheck.getId());
+                User user = new User();
+                user.setUserPassword(password);
+                UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+                updateWrapper.eq("user_email",userEmail);
+                int update = userMapper.update(user, updateWrapper);
+                flag = 2;
+                result.put("userEmail",userEmail);
+
+            } else {
+                Log.info("验证失败,请重新获取验证码" + userEmail);
+                flag = 1;
+            }
+
+
+        }
+        result.put("userRegisterFlag", flag);
+        return result;
+    }
+
+
 }

@@ -2,11 +2,12 @@ package com.ying.tangshi.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.oracle.tools.packager.Log;
 import com.ying.tangshi.entity.User;
 import com.ying.tangshi.mapper.UserMapper;
 import com.ying.tangshi.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Autowired
     UserMapper userMapper;
 
-
+    private static Logger Log = LoggerFactory.getLogger(UserServiceImpl.class);
     @Override
     public Map userLogin(String userNumber, String userPassword) {
         Log.info("登陆接口，请求参数:"+userNumber);

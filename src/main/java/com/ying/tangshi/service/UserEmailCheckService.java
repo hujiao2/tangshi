@@ -17,4 +17,9 @@ public interface UserEmailCheckService extends IService<UserEmailCheck> {
     Map userEmailCheck(String userNumber, String checkNumber, String userName, String userPhone, String userEmail, String userClass, String userState, String userStateClass, String userPassword);
 
     Map userSendEmailCheck(String userNumber, String userEmail);
+
+    Map userSendEmailCheckRetrieve(String userEmail);
+
+
+    Map userEmailRetrieveCheck(String userEmail,String checkNumber,String passwod);
 }

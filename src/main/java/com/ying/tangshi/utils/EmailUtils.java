@@ -36,6 +36,11 @@ public class EmailUtils {
         return sendSimpleMail(toEmail, "党员在线教育验证码", "【信息与机电工程学院党支部】您的验证码是" + verifyCode + "，请于3分钟内正确输入");
     }
 
+
+    public boolean sendVerifyCodeRetrieve(String toEmail, String verifyCode) {
+        return sendSimpleMail(toEmail, "党员在线教育找回密码验证码", "【信息与机电工程学院党支部】您的验证码是" + verifyCode + "，请于3分钟内正确输入");
+    }
+
     private static boolean sendSimpleMail(String toEmail, String subject, String content) {
         logger.info("简单邮件开始发送");
         try {

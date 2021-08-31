@@ -21,7 +21,7 @@ import com.ying.tangshi.controller.BaseController;
 @RequestMapping("userEmail")
 public class UserEmailCheckController extends BaseController {
     @Autowired
-    UserEmailCheckService UserEmailCheckService;
+    UserEmailCheckService userEmailCheckService;
 
 
 
@@ -35,14 +35,24 @@ public class UserEmailCheckController extends BaseController {
                                          @RequestParam("userStateClass") String userStateClass,
                                          @RequestParam("userPassword") String userPassword,
                                          @RequestParam("userEmailCheck") String UserEmailCheck) {
-        return UserEmailCheckService.userEmailCheck(userNumber,UserEmailCheck, userName, userPhone, userEmail, userClass, userState, userStateClass, userPassword);
+        return userEmailCheckService.userEmailCheck(userNumber,UserEmailCheck, userName, userPhone, userEmail, userClass, userState, userStateClass, userPassword);
     }
 
 
     @RequestMapping("/userSendEmailCheck")
     public Object userSendEmailCheck(@RequestParam("userNumber") String userNumber,
                                          @RequestParam("userEmail") String userEmail) {
-        return UserEmailCheckService.userSendEmailCheck(userNumber,userEmail);
+        return userEmailCheckService.userSendEmailCheck(userNumber,userEmail);
+    }
+
+    @RequestMapping("/userSendEmailCheckRetrieve")
+    public Object userSendEmailCheckRetrieve(@RequestParam("userEmail") String userEmail) {
+        return userEmailCheckService.userSendEmailCheckRetrieve(userEmail);
+    }
+
+    @RequestMapping("/userEmailRetrieveCheck")
+    public Object userEmailRetrieveCheck(@RequestParam("userEmail") String userEmail,@RequestParam("userEmailCheck") String userEmailCheck,@RequestParam("userPassword") String userPassword) {
+        return userEmailCheckService.userEmailRetrieveCheck(userEmail,userEmailCheck,userPassword);
     }
 
 
