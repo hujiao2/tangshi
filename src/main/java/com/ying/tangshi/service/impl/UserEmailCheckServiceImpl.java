@@ -1,14 +1,21 @@
 package com.ying.tangshi.service.impl;
+import java.util.Date;
 
 
+import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.oracle.tools.packager.Log;
+import com.ying.tangshi.entity.SysPermission;
+import com.ying.tangshi.entity.SysRole;
 import com.ying.tangshi.entity.User;
 import com.ying.tangshi.entity.UserEmailCheck;
+import com.ying.tangshi.mapper.SysPermissionMapper;
+import com.ying.tangshi.mapper.SysRoleMapper;
 import com.ying.tangshi.mapper.UserEmailCheckMapper;
 import com.ying.tangshi.mapper.UserMapper;
 import com.ying.tangshi.service.UserEmailCheckService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ying.tangshi.utils.DateUtils;
 import com.ying.tangshi.utils.EmailUtil;
 import com.ying.tangshi.utils.EmailUtils;
 import lombok.val;
@@ -16,10 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * <p>
@@ -40,6 +45,12 @@ public class UserEmailCheckServiceImpl extends ServiceImpl<UserEmailCheckMapper,
 
     @Autowired
     EmailUtils emailUtils;
+
+    @Autowired
+    SysRoleMapper sysRoleMapper;
+
+    @Autowired
+    SysPermissionMapper sysPermissionMapper;
 
 
     @Override
@@ -88,8 +99,63 @@ public class UserEmailCheckServiceImpl extends ServiceImpl<UserEmailCheckMapper,
 //            中共党员	level4
 //            党务干部	level5
 //            党支部书记	level6
+            int userId = Convert.toInt(generateId());////用户id
 
+            int roleId = Convert.toInt(generateId());////角色id
+
+
+            SysRole sysRole = new SysRole();
+            sysRole.setId(roleId);
+            sysRole.setUserId(userId);
+            sysRole.setRoleName("student");
+
+
+            SysPermission sysPermission = new SysPermission();
+            sysPermission.setRoleId(roleId);
+
+
+            if (userState.equals("积极分子")){
+                sysPermission.setPermission("level1");
+
+            }
+            if (userState.equals("发展对象")){
+                sysPermission.setPermission("level2");
+
+            }
+            if (userState.equals("预备党员")){
+                sysPermission.setPermission("level3");
+
+            }
+            if (userState.equals("中共党员")){
+                sysPermission.setPermission("level4");
+
+            }
+            if (userState.equals("党务干部")){
+                sysPermission.setPermission("level5");
+
+            }
+            if (userState.equals("党支部书记")){
+                sysPermission.setPermission("level6");
+
+            }
+
+            try {
+
+
+            }catch (Exception e){
+
+                Log.info("用户注册异常"+e);
+            }
+            user.setId(userId);////关联roleId
             userMapper.insert(user);
+            ////顺序不可更改,roleId为外键
+            sysRoleMapper.insert(sysRole);
+
+            sysPermission.setId(Convert.toInt(generateId()));
+            sysPermissionMapper.insert(sysPermission);
+
+
+
             flag = 2;
             result.put("userNumber", user.getUserNumber());
             result.put("userName", user.getUserName());
@@ -171,5 +237,16 @@ public class UserEmailCheckServiceImpl extends ServiceImpl<UserEmailCheckMapper,
 
         result.put("userLoginFlag", flag);
         return result;
+    }
+    /**
+     * 生成id
+     *
+     * @return
+     */
+    private Long generateId() {
+        Long time = Long.parseLong(new SimpleDateFormat("ddHHmmss").format(new Date())) * 10000;
+        UUID uuid = UUID.randomUUID();
+        Long lastLong = uuid.getLeastSignificantBits() % 100;
+        return time + lastLong;
     }
 }

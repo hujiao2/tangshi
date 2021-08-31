@@ -28,6 +28,7 @@
     <script th:src="@{/static/js/zui.datagrid.min.js}"></script>
     <script th:src="@{/static/js/zui.datagrid.js}"></script>
     <script th:src="@{/static/js/vue.min.js}"></script>
+    <script th:src="@{/static/js/code.js}"></script>
 
     <title></title>
     <style type="text/css">
@@ -40,10 +41,15 @@
             /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
         }
+        .cssG {
+            color: #aaa;
+            font-size: 14px;
+            font-weight: 400;
+        }
 
     </style>
 </head>
-<body class="color1" style="height: 900px;">
+<body data-loading="正在加载..." class="color1 load-indicator" style="height: 900px;">
 
 
 <div style="height: 100px;background-color: #ffffff;">
@@ -94,15 +100,21 @@
                                            data-error="<i class='icon-tips'></i>密码太短，最少6位||<i class='icon-tips'></i>密码长度6-20位||<i class=''></i>">
                                     <label class="focus valid"></label>
                                 </div>
+                                <div class="jq22-register-form-item">
+
+                                    <div style="width: 350px;background-color: ;height: 45px;">
+                                        <input style="width: 240px;float: left;height: 45px;"
+                                               type="text" placeholder="请输入验证码（不区分大小写）"
+                                               class="txt01 f-r3 form-control form-focus input-val" keycodes="tel"
+                                               maxlength="99">
+                                        <canvas style="float: right" id="canvas" width="100" height="43"></canvas>
 
 
-                                <div class="jq22-register-form-item" style="display: none;">
-                                    <input type="text" placeholder="动态码" maxlength="6" id="verifyNo"
-                                           class="txt02 f-r3 f-fl required" tabindex="2"
-                                           data-valid="isNonEmpty||isInt"
-                                           data-error="<i class='icon-tips'></i>请填写正确的邮箱动态码||<i class='icon-tips'></i>请填写6位邮箱动态码">
+                                    </div>
                                     <label class="focus valid"></label>
                                 </div>
+
+
                                 <div class="jq22-register-form-item">
                                     <!-- <div class="protocol">注册即同意<a href="#">《用户使用协议》</a>&amp;<a href="#">《隐私权条款》</a></div> -->
                                     <input id="login-btn" class="jq22-btn-reg" placeholder=""
@@ -152,7 +164,7 @@
                                 </div>
 
                                 <div class="jq22-register-form-item">
-                                    <select style="height: 42px;" id="user_state" class="form-control">
+                                    <select style="height: 42px;padding-left: 20px" id="user_state" class="form-control">
                                         <option value="0">请选择身份</option>
                                         <option value="积极分子">积极分子</option>
                                         <option value="发展对象">发展对象</option>
@@ -265,7 +277,6 @@
 
 </div>
 
-
 <script type="text/javascript" th:inline="javascript">
     var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
 
@@ -280,6 +291,16 @@
 	var flagClass = false
 	var flagState = false
 	var flagStateClass = false
+
+    function loadT(){
+        $('.color1').addClass('loading');
+
+    }
+    function loadF(){
+        $('.color1').removeClass('loading');
+
+    }
+
     // 你需要手动初始化工具提示
     $('[data-toggle="tooltip"]').tooltip({});
 
@@ -354,6 +375,9 @@
     var curCount1; //当前剩余秒数
     /*第一*/
     function sendMessage1() {
+        loadT();
+
+
 
         curCount1 = count;
 		var userNumber = $.trim($('#user_number').val());
@@ -375,7 +399,7 @@
 
 				},
 				success: function (res) {
-
+                    loadF();
 					var userLoginFlag = res.userLoginFlag;
 					var userNumber = res.userNumber;
 					if (userLoginFlag==1){
@@ -396,6 +420,7 @@
 
 				},
 				error: function () {
+				    loadF();
 					var msg = $.zui.messager.show('系统错误,联系管理员', {
 						placement: 'center',
 						type: 'success',
@@ -404,6 +429,7 @@
 				},
 			});
 		} else {
+		    loadF();
 			if (!flagNumber){
 				var msg = $.zui.messager.show("学号错误", {
 					placement: 'center',
@@ -435,96 +461,165 @@
         }
     }
 
+    function cssG() {
+        var cssG = $("#user_state").val();
+        if (cssG==0||cssG=="0"){
+            $("#user_state").addClass("cssG");
+        }else {
+            $("#user_state").removeClass("cssG");
+
+        }
+    }
     $(function () {
+        $("#user_state").on('change',function() {
+            var cssG = $(this).val();
+            if (cssG==0||cssG=="0"){
+                $("#user_state").addClass("cssG");
+            }else {
+                $("#user_state").removeClass("cssG");
+
+            }
+        });
+
+        cssG();
+
+
+
+
+        code_draw();
+        // 点击后刷新验证码
+        $("#canvas").on('click', function() {
+            code_draw();
+        })
+
+
 
         checkData();
 
 
         $("#login-btn").click(function () {
+            // loadT();
+
             var user_name = $.trim($('#username').val());
             var user_password = $.trim($('#user_password').val());
-            if (user_name != "" && user_password != "") {
-                $.ajax({
-                    // url:[[@{/a/loginAjax}]],
-                    url: basePath + "/a/loginAjax",
-                    dataType: "json",
-                    type: "POST",
-                    data: {
-                        userNumber: user_name,
-                        userPassword: user_password
-                    },
-                    success: function (res) {
-                        console.log(res.userLoginFlag);
-                        var userInfo = res.userInfo;
-                        var userLoginFlag = res.userLoginFlag;
 
-
-                        switch (userLoginFlag) {
-                            case 0:
-                                var msg = $.zui.messager.show("账号错误", {
-                                    placement: 'center',
-                                    type: 'success',
-                                    time: 2000
-                                });
-                                break;
-                            case 1:
-                                var msg = $.zui.messager.show("密码错误", {
-                                    placement: 'center',
-                                    type: 'success',
-                                    time: 2000
-                                });
-                                break;
-                            case 2:
-                                var msg = $.zui.messager.show("验证成功,等待跳转", {
-                                    placement: 'center',
-                                    type: 'success',
-                                    time: 2000
-                                });
-
-                                var userInfoStr = JSON.stringify(userInfo);
-                                Cookies.set('userInfo', userInfoStr, {
-                                    expires: 7,
-                                    path: '/'
-                                }); //7天过期userId
-                                var a = Cookies.get("userInfo");
-                                console.log(JSON.parse(a));
-                                window.location.href = basePath + "/a/index";
-
-                                // var int = self.setInterval(function() { // 这个方法是说在延迟两秒后执行大括号里的方法
-                                // 	window.location.href = "index.html"
-                                // }, 2000) //这里2000代表两秒
-                                break;
-                            default:
-                                var msg = $.zui.messager.show("联系管理员", {
-                                    placement: 'center',
-                                    type: 'success',
-                                    time: 2000
-                                });
-                                break;
-                        }
-
-
-                        // var int = self.setInterval(function() { // 这个方法是说在延迟两秒后执行大括号里的方法
-                        // 	window.location.href = "userPages/index.html"
-                        // }, 2000) //这里2000代表两秒
-                    },
-                    error: function (e) {
-
-                        var msg = $.zui.messager.show("系统错误", {
-                            placement: 'center',
-                            type: 'danger',
-                            time: 2000
-                        });
-
-                    },
-                });
-            } else {
-                var msg = $.zui.messager.show("账号或密码为空", {
+            // 将输入的内容转为大写，可通过这步进行大小写验证
+            var val = $(".input-val").val().toLowerCase();
+            // 获取生成验证码值
+            var num ;
+            num = $('#canvas').attr('data-code');
+            if (val == '') {
+                // loadF();
+                code_draw();
+                var msg = $.zui.messager.show("请输入验证码", {
                     placement: 'center',
                     type: 'warning',
                     time: 2000
                 });
+            } else if (val == num) {
+                // loadF();
+                if (user_name != "" && user_password != "") {
+                    loadT();
+                    $.ajax({
+                        // url:[[@{/a/loginAjax}]],
+                        url: basePath + "/a/loginAjax",
+                        dataType: "json",
+                        type: "POST",
+                        data: {
+                            userNumber: user_name,
+                            userPassword: user_password
+                        },
+                        success: function (res) {
+                            loadF();
+                            console.log(res.userLoginFlag);
+                            var userInfo = res.userInfo;
+                            var userLoginFlag = res.userLoginFlag;
+
+
+                            switch (userLoginFlag) {
+                                case 0:
+                                    var msg = $.zui.messager.show("账号错误", {
+                                        placement: 'center',
+                                        type: 'success',
+                                        time: 2000
+                                    });
+                                    break;
+                                case 1:
+                                    var msg = $.zui.messager.show("密码错误", {
+                                        placement: 'center',
+                                        type: 'success',
+                                        time: 2000
+                                    });
+                                    break;
+                                case 2:
+                                    var msg = $.zui.messager.show("验证成功,等待跳转", {
+                                        placement: 'center',
+                                        type: 'success',
+                                        time: 2000
+                                    });
+
+                                    var userInfoStr = JSON.stringify(userInfo);
+                                    Cookies.set('userInfo', userInfoStr, {
+                                        expires: 7,
+                                        path: '/'
+                                    }); //7天过期userId
+                                    var a = Cookies.get("userInfo");
+                                    console.log(JSON.parse(a));
+                                    window.location.href = basePath + "/a/index";
+
+                                    // var int = self.setInterval(function() { // 这个方法是说在延迟两秒后执行大括号里的方法
+                                    // 	window.location.href = "index.html"
+                                    // }, 2000) //这里2000代表两秒
+                                    break;
+                                default:
+                                    var msg = $.zui.messager.show("联系管理员", {
+                                        placement: 'center',
+                                        type: 'success',
+                                        time: 2000
+                                    });
+                                    break;
+                            }
+
+
+                            // var int = self.setInterval(function() { // 这个方法是说在延迟两秒后执行大括号里的方法
+                            // 	window.location.href = "userPages/index.html"
+                            // }, 2000) //这里2000代表两秒
+                        },
+                        error: function (e) {
+                            loadF()
+                            var msg = $.zui.messager.show("系统错误", {
+                                placement: 'center',
+                                type: 'danger',
+                                time: 2000
+                            });
+
+                        },
+                    });
+                } else {
+                    var msg = $.zui.messager.show("账号或密码为空", {
+                        placement: 'center',
+                        type: 'warning',
+                        time: 2000
+                    });
+                }
+
+
+                $(".input-val").val('');
+                code_draw();
+
+            } else {
+                loadF();
+                var msg = $.zui.messager.show("验证码错误,请重新输入", {
+                    placement: 'center',
+                    type: 'warning',
+                    time: 2000
+                });
+                $(".input-val").val('');
+                code_draw();
+
             }
+
+
 
 
         });
@@ -933,6 +1028,7 @@
 
 
     function postFromData(){
+        loadT();
 		// 获取表单的值
 		var userName = $.trim($('#user_name').val());
 		var userNumber = $.trim($('#user_number').val());
@@ -961,6 +1057,7 @@
 
 			},
 			success: function (res) {
+			    loadF();
 				console.log(res);
 				// var userInfo = res.userInfo;
 				// var userLoginFlag = res.userLoginFlag;
@@ -998,7 +1095,7 @@
 				}
 			},
 			error: function (e) {
-
+                loadF()
 				var msg = $.zui.messager.show("系统错误", {
 					placement: 'center',
 					type: 'danger',
